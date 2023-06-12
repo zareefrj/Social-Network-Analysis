@@ -1,7 +1,7 @@
 import os 
 from dotenv import load_dotenv
 import time
-import pandas
+import pandas as pd
 import numpy as np
 
 from selenium import webdriver
@@ -23,17 +23,25 @@ def loading(duration, placeholder="Loading"):
         bar = '|' + '=' * filled_width + ('>' if filled_width < total_width else '') + '.' * remaining_width + '|'
         print(f'\r{placeholder} {bar}', end='')
         time.sleep(0.1)
-    print('\r                                                               ', end='', flush=True)
+    print('\r'+150*'', end='\n', flush=True)
 
     # print('\nLoading complete.')
 
 class Scraper:
 
-    def __init__(self, credentials='.env'):
+    def __init__(self, webdriver=webdriver.Safari(), credentials='.env'):
         load_dotenv(credentials)
 
+        
+        a = os.getenv('EMAIL')
+        b = os.getenv('PASSWORD')
+        c = os.getenv('USERNAME')
+        if a is None or b is None or c is None:
+            print("ERROR: Create a .env file containing your Twitter account credentials 'EMAIL', 'PASSWORD', and 'USERNAME")
+            return None
+
         # Create a Safari WebDriver instance
-        self.driver = webdriver.Safari()
+        self.driver = webdriver
 
         driver = self.driver 
 
@@ -43,7 +51,7 @@ class Scraper:
         # Navigate to the Twitter login page
         driver.get('https://twitter.com/login')
         loading(3, "Rendering Login Page (1)")
-
+        
         # Find the username and password input fields and fill them with your login credentials
         username_input = driver.find_element(By.CSS_SELECTOR, 'input[name="text"].r-30o5oe')
         for char in os.getenv('EMAIL'):
@@ -137,7 +145,7 @@ class Scraper:
         except Exception as e:
             followersNumText = None
 
-        loading(0.5, "Fetching User Info")
+        # loading(0.2, "Fetching User Info")
         result = {
             'name': name.text,
             '@': at.text,
@@ -283,7 +291,10 @@ class Scraper:
         print(query)
 
         if query != '':
-            loading(2.25)
+            loading(2.25, "Rendering Explore Page")
+        else:
+            return False
+        
         query_input_element = driver.find_element(By.CSS_SELECTOR, 'input[data-testid="SearchBox_Search_Input"]')
 
         for char in query:
@@ -291,11 +302,16 @@ class Scraper:
             time.sleep(0.01)
 
         query_input_element.send_keys(Keys.ENTER)
+        return True
 
     def get_posts(self, query, filters=None, limit=10):
         driver = self.driver
 
-        self.search(query, filters)
+        if not self.search(query, filters):
+            # If cannot search due to query issues, return
+            print("No Results Found!")
+            return None
+
         # Get initial page height
         last_height = driver.execute_script("return document.body.scrollHeight")
 
@@ -340,5 +356,15 @@ class Scraper:
 
             # Update the last recorded page height
             last_height = new_height
+        
+        df = []
+        try:
+            print(f"Searching for redundancies and filtering to at most {limit} posts...")
+            out = np.unique(out, axis=0)[:limit]
+            df = pd.DataFrame(out[:limit])
+            df.columns = ["Twitter Username", "Post", "Date Posted"]
+            print("Completed!")
+        except Exception as e:
+            print("No Results Found!")
 
-        return out[:limit]
+        return df
