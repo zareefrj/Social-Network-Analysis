@@ -76,7 +76,7 @@ Returns a Pandas DataFrame of the posts based on your query as shown below:
 
 5. `filter:links`
    
-   Filters tweets containing links.
+   Filters tweets containing links (news articles, images, videos).
    
    *Example: filter:links*
 
@@ -96,7 +96,7 @@ Returns a Pandas DataFrame of the posts based on your query as shown below:
    
    Excludes specific search criteria.
    
-   *Example: -filter:retweets* **(excludes retweets)**
+   *Example: -filter:nativeretweets* **(excludes retweets)**
 
 9. `min_retweets:`
    
