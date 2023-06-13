@@ -322,9 +322,18 @@ class Scraper:
             # Find the elements and fetch the values
             author = driver.find_elements(By.CSS_SELECTOR, 'div[class="css-1dbjc4n r-1iusvr4 r-16y2uox r-1777fci r-kzbkwu"] > div[class="css-1dbjc4n r-zl2h9q"] > div > div > div > div > div[class="css-1dbjc4n r-18u37iz r-1wbh5a2 r-13hce6t"] > div > div[class="css-1dbjc4n r-1wbh5a2 r-dnmrzs"]')
             caption = driver.find_elements(By.CSS_SELECTOR, 'div[class="css-1dbjc4n r-1iusvr4 r-16y2uox r-1777fci r-kzbkwu"] > div[class="css-1dbjc4n"] > div[class="css-901oao r-1nao33i r-37j5jr r-a023e6 r-16dba41 r-rjixqe r-bcqeeo r-bnwqim r-qvutc0"]')
+            # caption = driver.find_elements(By.CSS_SELECTOR, 'div[class="css-1dbjc4n r-1iusvr4 r-16y2uox r-1777fci r-kzbkwu"] > div[class="css-1dbjc4n"] > div[class="css-901oao r-1nao33i r-1qd0xha r-a023e6 r-16dba41 r-rjixqe r-bcqeeo r-bnwqim r-qvutc0"]')
             post_date = driver.find_elements(By.CSS_SELECTOR, 'div[class="css-1dbjc4n r-1iusvr4 r-16y2uox r-1777fci r-kzbkwu"] > div[class="css-1dbjc4n r-zl2h9q"] > div > div > div > div > div[class="css-1dbjc4n r-18u37iz r-1wbh5a2 r-13hce6t"] > div > div[class="css-1dbjc4n r-18u37iz r-1q142lx"]')
-
+            
             posts_per_scroll = []
+
+            # for i in author:
+            #     print("author",i.text)
+            # for i in caption:
+            #     print("captoinnvhf",i.text)
+            # for i in post_date:
+            #     print("date",i.text)
+
             for a, c, p in zip(author, caption, post_date):
                 aText = a.text
                 cText = c.text
