@@ -3,7 +3,7 @@
 **List of functions**
 1. `Scraper.fetch_userinfo(username)`
 Returns a dictionary of the user's Twitter information as below (username should not contain "@"):
-```
+``` py
 {
     'name': 'Anwar Ibrahim',
     '@': '@anwaribrahim',
@@ -18,7 +18,7 @@ Returns a dictionary of the user's Twitter information as below (username should
 
 2. `Scraper.fetch_followings(username, limit=50)`
 Returns a Numpy Array of the user's followings (in @'s) as shown below (username should not contain "@"):
-```
+``` py
 array(['@501Awani', '@AdamAdli', '@SinarOnline', '@SyedSaddiq',
        '@bernamadotcom', '@drwanazizah', '@fahmi_fadzil', '@hannahyeoh',
        '@kuasasiswa', '@malaysiakini'], dtype='<U14')
@@ -26,7 +26,7 @@ array(['@501Awani', '@AdamAdli', '@SinarOnline', '@SyedSaddiq',
 
 3. `Scraper.fetch_followers(username, limit=50)`
 Returns a Numpy Array of the user's followers (in @'s) as shown below (username should not contain "@"):
-```
+``` py
 array(['@501Awani', '@AdamAdli', '@SinarOnline', '@SyedSaddiq',
        '@bernamadotcom', '@kuasasiswa', '@malaysiakini'], dtype='<U14')
 ```
@@ -46,64 +46,81 @@ Returns a Pandas DataFrame of the posts based on your query as shown below:
 
 # **Twitter Search Filters**
 
-`to:`
-Filters tweets sent to a specific user.
+1. `to:`
+   
+   Filters tweets sent to a specific user.
+   
+   *Example: to:username*
 
-*Example: to:username*
+2. `from:`
+   
+   Filters tweets sent from a specific user.
+   
+   *Example: from:username*
 
-`from:`
-Filters tweets sent from a specific user.
+3. `filter:nativeretweets`
+   
+   Filters native retweets, excluding retweets with comments.
+   
+   *Example: filter:nativeretweets*
 
-*Example: from:username*
+4. `filter:replies`
+   
+   Filters replies to a specific tweet or user.
+   
+   *Example: filter:replies*
 
-`filter:nativeretweets`
-Filters native retweets, excluding retweets with comments.
+5. `filter:links`
+   
+   Filters tweets containing links.
+   
+   *Example: filter:links*
 
-*Example: filter:nativeretweets*
+6. `since:`
+   
+   Filters tweets posted since a specific date. The date should be in the format "YYYY-MM-DD".
+   
+   *Example: since:2022-01-01*
 
-`filter:replies`
-Filters replies to a specific tweet or user.
+7. `until:`
+   
+   Filters tweets posted until a specific date. The date should be in the format "YYYY-MM-DD".
+   
+   *Example: until:2022-12-31*
 
-*Example: filter:replies*
+8. `-filter:`
+   
+   Excludes specific search criteria.
+   
+   *Example: -filter:retweets (excludes retweets)*
 
-`filter:links`
-Filters tweets containing links.
+9. `min_retweets:`
+   
+   Filters tweets with a minimum number of retweets.
+   
+   *Example: min_retweets:1000*
 
-*Example: filter:links*
+10. `lang:en`
+    
+    Filters tweets in a specific language. "en" represents English.
+    
+    *Example: lang:en*
 
-`since:`
-Filters tweets posted since a specific date. The date should be in the format "YYYY-MM-DD".
+11. `filter:safe`
+    
+    Filters tweets marked as "safe" content.
+    
+    *Example: filter:safe*
 
-*Example: since:2022-01-01*
-
-`until:`
-Filters tweets posted until a specific date. The date should be in the format "YYYY-MM-DD".
-
-*Example: until:2022-12-31*
-
-`-filter:`
-Excludes specific search criteria.
-
-*Example: -filter:retweets (excludes retweets)*
-
-`min_retweets:`
-Filters tweets with a minimum number of retweets.
-
-*Example: min_retweets:1000*
-
-`lang:en`
-Filters tweets in a specific language. "en" represents English.
-
-*Example: lang:en*
-
-`filter:safe`
-Filters tweets marked as "safe" content.
-
-*Example: filter:safe*
-
-`min_faves:`
-Filters tweets with a minimum number of favorites.
-
-*Example: min_faves:500*
+12. `min_faves:`
+    
+    Filters tweets with a minimum number of favorites.
+    
+    *Example: min_faves:500*
 
 You can use these filters in combination to create more specific search queries. Remember to replace "username" with the actual Twitter username you want to filter by and adjust the dates and numbers as needed for your search requirements.
+
+**Sample Combined Query**
+``` py
+posts = scraper.get_posts(query="#LangkahSheraton OR sheraton OR #SheratonMove OR \"langkah sheraton\"", filters="-filter:links since:2020-01-09 lang:en -filter:nativeretweets", limit=500)
+```
