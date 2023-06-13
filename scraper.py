@@ -153,8 +153,8 @@ class Scraper:
             'userLocation': userLocationText,
             'joinDate': joinDateText,
             'verified': verified,
-            'followers': followersNumText,
-            'followings': followingsNumText
+            'followings': followersNumText, #terbalik lol (tapi dah fix)
+            'followers': followingsNumText
         }
 
         return result
