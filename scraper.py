@@ -304,13 +304,19 @@ class Scraper:
         query_input_element.send_keys(Keys.ENTER)
         return True
 
-    def get_posts(self, query, filters=None, limit=10):
+    def get_posts(self, query, filters=None, limit=10, latest=True):
         driver = self.driver
 
         if not self.search(query, filters):
             # If cannot search due to query issues, return
             print("No Results Found!")
             return None
+
+        if latest:
+            current_url = driver.current_url
+            latest_posts_url = current_url + "&f=live"
+            driver.get(latest_posts_url)
+            loading(2.25, "Rendering Latest Posts")
 
         # Get initial page height
         last_height = driver.execute_script("return document.body.scrollHeight")
