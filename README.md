@@ -2,6 +2,7 @@
 
 **List of functions**
 1. `Scraper.fetch_userinfo(username)`
+
 Returns a dictionary of the user's Twitter information as below (username should not contain "@"):
 ``` py
 {
@@ -17,6 +18,7 @@ Returns a dictionary of the user's Twitter information as below (username should
 ```
 
 2. `Scraper.fetch_followings(username, limit=50)`
+
 Returns a Numpy Array of the user's followings (in @'s) as shown below (username should not contain "@"):
 ``` py
 array(['@501Awani', '@AdamAdli', '@SinarOnline', '@SyedSaddiq',
@@ -25,6 +27,7 @@ array(['@501Awani', '@AdamAdli', '@SinarOnline', '@SyedSaddiq',
 ```
 
 3. `Scraper.fetch_followers(username, limit=50)`
+
 Returns a Numpy Array of the user's followers (in @'s) as shown below (username should not contain "@"):
 ``` py
 array(['@501Awani', '@AdamAdli', '@SinarOnline', '@SyedSaddiq',
@@ -32,6 +35,7 @@ array(['@501Awani', '@AdamAdli', '@SinarOnline', '@SyedSaddiq',
 ```
 
 4. `Scraper.get_posts(query, filters=None, limit=10)`
+
 Returns a Pandas DataFrame of the posts based on your query as shown below:
 ```
 	Twitter Username	Post	Date Posted
