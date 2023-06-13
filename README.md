@@ -96,7 +96,7 @@ Returns a Pandas DataFrame of the posts based on your query as shown below:
    
    Excludes specific search criteria.
    
-   *Example: -filter:retweets (excludes retweets)*
+   *Example: -filter:retweets* **(excludes retweets)**
 
 9. `min_retweets:`
    
