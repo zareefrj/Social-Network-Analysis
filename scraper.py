@@ -265,7 +265,7 @@ class Scraper:
     
     def generate_query(self, query, filters):
         valid_filters = ['to:', 'from:', 'filter:nativeretweets', 'filter:replies', 
-                        'filter:links','since:', 'until:', '-filter:',
+                        'filter:links','since:', 'until:', '-',
                         'min_retweets:', 'lang:en', 'filter:safe', 'min_faves:']
 
         # Check if filters are provided
@@ -360,7 +360,7 @@ class Scraper:
             # Scroll down to the bottom
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-            time.sleep(2.25)  # Adjust the sleep duration as necessary (to mimic human behaviour)
+            time.sleep(3.5)  # Adjust the sleep duration as necessary (to mimic human behaviour)
 
             # Calculate the new page height after scrolling
             new_height = driver.execute_script("return document.body.scrollHeight")
